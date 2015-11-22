@@ -82,7 +82,11 @@ public abstract class AbstractStorageDeviceDetector {
             logger.trace("Device found: " + root.getPath());
         }
 
-        USBStorageDevice device = new USBStorageDevice(root);
-        listDevices.add(device);
+        try {
+	  USBStorageDevice device = new USBStorageDevice(root);
+	  listDevices.add(device);
+	} catch (Throwable t) {
+            logger.trace("Device not accessible: " + rootPath);
+	}
     }
 }
